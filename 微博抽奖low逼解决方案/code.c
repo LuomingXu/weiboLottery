@@ -1,8 +1,9 @@
 ﻿#include<stdio.h>
 #include<string.h>
 #include<malloc.h>
-#include<Windows.h>
+#include<stdlib.h>
 #include<time.h>
+
 void judge(int judgeNum, int* i);
 void zero(char judgeName1[], int i, int array[], char nickName[][50], int M);
 
