@@ -1,18 +1,22 @@
-#include<stdio.h>
+ï»¿#include<stdio.h>
 #include<string.h>
 #include<malloc.h>
 #include<Windows.h>
-
+#include<time.h>
 void judge(int judgeNum, int* i);
 void zero(char judgeName1[], int i, int array[], char nickName[][50], int M);
 
 int main(int argc, char const* argv[])
 {
-	int M;//×ª·¢×ÜÁ¿<=1000
-	int N;//ÖÐ½±¼ä¸ô
-	int S;//µÚÒ»Î»ÖÐ½±ÕßÐòºÅ
+	clock_t start, finish;
+	double duration;
+
+
+	int M;//è½¬å‘æ€»é‡<=1000
+	int N;//ä¸­å¥–é—´éš”
+	int S;//ç¬¬ä¸€ä½ä¸­å¥–è€…åºå·
 	int judgeNum = 0;
-	char nickName[1000][50];//×ª·¢ÕßêÇ³Æ
+	char nickName[1000][50];//è½¬å‘è€…æ˜µç§°
 	int array[1000];
 	int i = 0;
 	char* judgeName1;
@@ -28,6 +32,7 @@ int main(int argc, char const* argv[])
 		array[i] = 1;
 	}
 
+	start = clock();//å¼€å§‹è®¡æ—¶
 	i = S - 1;
 	for (i; i < M;)
 	{
@@ -37,13 +42,13 @@ int main(int argc, char const* argv[])
 			break;
 		}
 
-		//ÅÐ¶ÏÊÇ·ñ³öÏÖ¹ý
+		//åˆ¤æ–­æ˜¯å¦å‡ºçŽ°è¿‡
 		judgeNum = array[i];
 		judge(judgeNum, &i);
 
 		printf("%s\n", nickName[i]);
 
-		//½«³öÏÖ¹ýµÄêÇ³ÆµÄarrayÈ«±ä³É-1
+		//å°†å‡ºçŽ°è¿‡çš„æ˜µç§°çš„arrayå…¨å˜æˆ-1
 		strcpy_s(judgeName1, 50, nickName[i]);
 		zero(judgeName1, i, array, nickName, M);
 
@@ -57,6 +62,10 @@ int main(int argc, char const* argv[])
 
 	free(judgeName1);
 
+	finish = clock();//è®¡æ—¶ç»“æŸ
+	duration = (double)(finish - start) / CLOCKS_PER_SEC;
+	printf("Time: %fms\n", duration * 1000);
+
 	system("pause");
 	return 0;
 }
@@ -68,7 +77,7 @@ void zero(char judgeName1[], int i, int array[], char nickName[][50], int M)
 
 	for (i; i < M; i++)
 	{
-		if (*(array + i) == -1)//ÈôÕâ¸öêÇ³ÆÔçÒÑ±ä³É-1¾ÍÌø¹ý
+		if (*(array + i) == -1)//è‹¥è¿™ä¸ªæ˜µç§°æ—©å·²å˜æˆ-1å°±è·³è¿‡
 			continue;
 
 		strcpy_s(judgeName2, 50, nickName[i]);
