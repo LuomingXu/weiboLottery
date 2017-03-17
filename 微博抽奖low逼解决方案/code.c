@@ -36,12 +36,6 @@ int main(int argc, char const* argv[])
 	i = S - 1;
 	for (i; i < M;)
 	{
-		if (i > M - 1)
-		{
-			printf("Keep going...\n");
-			break;
-		}
-
 		//判断是否出现过
 		judgeNum = array[i];
 		judge(judgeNum, &i);
