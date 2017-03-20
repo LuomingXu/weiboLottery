@@ -4,7 +4,6 @@
 #include<stdlib.h>
 #include<time.h>
 
-void judge(int judgeNum, int* i);
 void zero(char judgeName1[], int i, int array[], char nickName[][50], int M);
 
 int main(int argc, char const* argv[])
@@ -12,13 +11,11 @@ int main(int argc, char const* argv[])
 	clock_t start, finish;
 	double duration;
 
-
 	int M;//转发总量<=1000
 	int N;//中奖间隔
 	int S;//第一位中奖者序号
-	int judgeNum = 0;
 	char nickName[1000][50];//转发者昵称
-	int array[1000];
+	int array[1000];//判断是否出现过的数组
 	int i = 0;
 	char* judgeName1;
 	judgeName1 = (char*)malloc(sizeof(char) * 50);
@@ -38,8 +35,11 @@ int main(int argc, char const* argv[])
 	for (i; i < M;)
 	{
 		//判断是否出现过
-		judgeNum = array[i];
-		judge(judgeNum, &i);
+		if (array[i] == -1)
+		{
+			i++;
+			continue;
+		}
 
 		printf("%s\n", nickName[i]);
 
@@ -72,7 +72,8 @@ void zero(char judgeName1[], int i, int array[], char nickName[][50], int M)
 
 	for (i; i < M; i++)
 	{
-		if (*(array + i) == -1)//若这个昵称早已变成-1就跳过
+		//将所有一样的名字变成-1
+		if (*(array+i)==-1)//如果早就变成了-1，就跳过
 			continue;
 
 		strcpy_s(judgeName2, 50, nickName[i]);
@@ -83,10 +84,4 @@ void zero(char judgeName1[], int i, int array[], char nickName[][50], int M)
 	}
 
 	free(judgeName2);
-}
-
-void judge(int judgeNum, int* i)
-{
-	if (judgeNum == -1)
-		*i += 1;
 }
